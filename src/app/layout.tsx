@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AERO — Serverless Cloud Infrastructure Monitor",
+  title: "AERO - Serverless Cloud Infrastructure Monitor",
   description:
     "A lightweight, brutalist dashboard for monitoring AWS cloud resources. EC2 health, S3 usage, and billing metrics — no enterprise bloat.",
   keywords: [
