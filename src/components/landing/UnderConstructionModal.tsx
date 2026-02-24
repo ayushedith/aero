@@ -40,13 +40,13 @@ export function UnderConstructionModal() {
         <button
           onClick={handleClose}
           aria-label="Close"
-          className="absolute right-4 top-4 border-2 border-foreground bg-heirlock-yellow p-2 text-foreground"
+          className="absolute right-4 top-4 border-2 border-foreground bg-heirlock-yellow p-2 text-foreground hover-lift press-down focus-ring"
         >
           <X className="h-4 w-4" />
         </button>
 
         <div className="space-y-4">
-          <div className="text-xs uppercase tracking-[0.3em] text-muted">
+          <div className="text-xs font-mono uppercase tracking-[0.3em] text-muted">
             Notice
           </div>
           <h2 className="text-2xl font-semibold uppercase leading-tight text-foreground">
@@ -60,14 +60,14 @@ export function UnderConstructionModal() {
           <div className="flex flex-col gap-3 pt-2 sm:flex-row">
             <button
               onClick={handleClose}
-              className="w-full border-2 border-foreground bg-foreground px-6 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-background"
+              className="w-full border-2 border-foreground bg-foreground px-6 py-3 text-xs font-mono font-semibold uppercase tracking-[0.22em] text-background hover-lift press-down focus-ring"
             >
               Continue to preview
             </button>
             <a
               href="#architecture"
               onClick={handleClose}
-              className="w-full border-2 border-foreground bg-surface px-6 py-3 text-center text-xs font-semibold uppercase tracking-[0.22em] text-foreground"
+              className="w-full border-2 border-foreground bg-surface px-6 py-3 text-center text-xs font-mono font-semibold uppercase tracking-[0.22em] text-foreground hover-lift press-down focus-ring"
             >
               Review architecture
             </a>

@@ -25,11 +25,11 @@ const BARS = [32, 45, 38, 62, 58, 41, 72, 66, 54, 61, 49, 57] as const;
 
 export function TerminalDemo() {
   return (
-    <section id="insights" className="relative border-t-2 border-foreground">
+    <section id="insights" className="relative border-t-2 border-foreground reveal-soft reveal-delay-2">
       <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
           <div className="flex-1">
-            <p className="text-xs uppercase tracking-[0.3em] text-muted">
+            <p className="text-xs font-mono uppercase tracking-[0.3em] text-muted">
               Insights
             </p>
             <h2 className="mt-3 text-3xl font-semibold uppercase tracking-tight text-foreground sm:text-4xl">
@@ -45,17 +45,17 @@ export function TerminalDemo() {
               {INSIGHTS.map((insight) => (
                 <div
                   key={insight.time}
-                  className="border-2 border-foreground bg-surface px-5 py-4 shadow-[6px_6px_0_0_#1a1a1a]"
+                  className="border-2 border-foreground bg-surface px-5 py-4 shadow-[6px_6px_0_0_#1a1a1a] hover-lift"
                 >
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-semibold uppercase text-foreground">
                       {insight.title}
                     </p>
-                    <span className="text-xs uppercase tracking-[0.2em] text-foreground/70">
+                    <span className="text-xs font-mono uppercase tracking-[0.2em] text-foreground/70">
                       {insight.time}
                     </span>
                   </div>
-                  <p className="mt-2 text-xs text-foreground/70">
+                  <p className="mt-2 text-xs font-mono text-foreground/70">
                     {insight.detail}
                   </p>
                 </div>
@@ -70,9 +70,11 @@ export function TerminalDemo() {
                   <p className="text-sm font-semibold uppercase text-foreground">
                     Live signal strength
                   </p>
-                  <p className="text-xs text-foreground/70">Last 60 minutes</p>
+                  <p className="text-xs font-mono text-foreground/70">
+                    Last 60 minutes
+                  </p>
                 </div>
-                <span className="border-2 border-foreground bg-heirlock-yellow px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-foreground">
+                <span className="border-2 border-foreground bg-heirlock-yellow px-3 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-foreground">
                   Stream
                 </span>
               </div>

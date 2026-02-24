@@ -4,7 +4,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t-2 border-foreground bg-surface">
+    <footer className="border-t-2 border-foreground bg-surface reveal-soft reveal-delay-3">
       <div className="mx-auto max-w-6xl px-6 py-12">
         <div className="grid gap-8 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
@@ -16,7 +16,7 @@ export function Footer() {
                 <p className="text-sm font-semibold uppercase tracking-[0.3em] text-foreground">
                   AERO
                 </p>
-                <p className="text-[10px] uppercase tracking-[0.25em] text-muted">
+                <p className="text-[10px] font-mono uppercase tracking-[0.25em] text-muted">
                   Serverless monitor
                 </p>
               </div>
@@ -28,7 +28,7 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-muted">
+            <p className="text-xs font-mono uppercase tracking-[0.3em] text-muted">
               Stack
             </p>
             <ul className="mt-4 space-y-2 text-sm text-foreground/70">
@@ -41,7 +41,7 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-muted">
+            <p className="text-xs font-mono uppercase tracking-[0.3em] text-muted">
               Links
             </p>
             <ul className="mt-4 space-y-2 text-sm text-foreground/70">
@@ -64,7 +64,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-2 border-t-2 border-foreground pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-2 border-t-2 border-foreground pt-6 text-xs font-mono text-muted sm:flex-row sm:items-center sm:justify-between">
           <span>© {year} AERO. 12 projects in 12 months.</span>
           <span>Built by Ayush for the portfolio challenge.</span>
         </div>

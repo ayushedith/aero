@@ -16,7 +16,7 @@ const SIGNALS = [
 
 export function Hero() {
   return (
-    <section id="overview" className="relative overflow-hidden">
+    <section id="overview" className="relative overflow-hidden reveal-soft">
       <div className="absolute inset-0 bg-grid-soft opacity-70" />
       <div className="absolute inset-0 bg-noise opacity-30" />
       <div className="absolute -top-20 right-[-120px] h-[320px] w-[320px] border-2 border-foreground bg-heirlock-pink" />
@@ -24,7 +24,7 @@ export function Hero() {
 
       <div className="relative mx-auto grid max-w-6xl gap-12 px-6 pb-20 pt-28 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
-          <div className="inline-flex items-center gap-3 border-2 border-foreground bg-heirlock-yellow px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground">
+          <div className="inline-flex items-center gap-3 border-2 border-foreground bg-heirlock-yellow px-4 py-2 text-[11px] font-mono font-semibold uppercase tracking-[0.28em] text-foreground">
             <span className="h-2 w-2 bg-foreground" />
             Serverless Cloud Monitor
           </div>
@@ -39,13 +39,13 @@ export function Hero() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/dashboard"
-              className="brutalist-cutout inline-flex items-center justify-center px-6 py-3 text-xs font-semibold uppercase tracking-[0.22em]"
+              className="brutalist-cutout inline-flex items-center justify-center px-6 py-3 text-xs font-mono font-semibold uppercase tracking-[0.22em] hover-lift press-down focus-ring"
             >
               Launch dashboard
             </Link>
             <a
               href="#architecture"
-              className="brutalist-panel inline-flex items-center justify-center px-6 py-3 text-xs font-semibold uppercase tracking-[0.22em]"
+              className="brutalist-panel inline-flex items-center justify-center px-6 py-3 text-xs font-mono font-semibold uppercase tracking-[0.22em] hover-lift press-down focus-ring"
             >
               View architecture
             </a>
@@ -57,9 +57,9 @@ export function Hero() {
                 key={metric.label}
                 className={`brutalist-card px-4 py-4 ${
                   index % 2 === 0 ? "bg-heirlock-blue" : "bg-heirlock-pink"
-                }`}
+                } hover-lift`}
               >
-                <p className="text-xs uppercase tracking-[0.2em] text-foreground/70">
+                <p className="text-xs font-mono uppercase tracking-[0.2em] text-foreground/70">
                   {metric.label}
                 </p>
                 <p className="mt-2 text-2xl font-semibold text-foreground">
@@ -78,9 +78,9 @@ export function Hero() {
                 <p className="text-sm font-semibold text-foreground">
                   Live telemetry
                 </p>
-                <p className="text-xs text-muted">Updated just now</p>
+                <p className="text-xs font-mono text-muted">Updated just now</p>
               </div>
-              <div className="brutalist-chip px-3 py-1 text-[10px] uppercase tracking-[0.22em]">
+              <div className="brutalist-chip px-3 py-1 text-[10px] font-mono uppercase tracking-[0.22em]">
                 Region us east 1
               </div>
             </div>
@@ -93,7 +93,7 @@ export function Hero() {
                     key={signal.label}
                     className={`flex items-center justify-between border-2 border-foreground px-4 py-4 ${
                       index % 2 === 0 ? "bg-heirlock-green" : "bg-heirlock-blue"
-                    }`}
+                    } hover-lift`}
                   >
                     <div className="flex items-center gap-3">
                       <span className="flex h-10 w-10 items-center justify-center border-2 border-foreground bg-background">
@@ -103,7 +103,9 @@ export function Hero() {
                         <p className="text-sm font-semibold text-foreground">
                           {signal.label}
                         </p>
-                        <p className="text-xs text-foreground/70">{signal.value}</p>
+                        <p className="text-xs font-mono text-foreground/70">
+                          {signal.value}
+                        </p>
                       </div>
                     </div>
                     <ArrowUpRight className="h-4 w-4 text-foreground" />
@@ -113,22 +115,25 @@ export function Hero() {
             </div>
 
             <div className="mt-6 border-2 border-foreground bg-heirlock-yellow px-4 py-4">
-              <p className="text-xs uppercase tracking-[0.2em] text-foreground/70">
+              <p className="text-xs font-mono uppercase tracking-[0.2em] text-foreground/70">
                 Budget status
               </p>
               <div className="mt-3 flex items-center justify-between">
                 <p className="text-sm font-semibold text-foreground">
                   78 percent of monthly target
                 </p>
-                <span className="text-xs text-foreground/70">3 days left</span>
+                <span className="text-xs font-mono text-foreground/70">
+                  3 days left
+                </span>
               </div>
               <div className="mt-3 h-2 w-full border-2 border-foreground bg-background">
                 <div className="h-full w-[78%] stripe-accent" />
               </div>
+              <div className="mt-4 h-2 w-full border-2 border-foreground bg-background loading-sheen" />
             </div>
           </div>
 
-          <div className="absolute -bottom-10 -right-4 hidden w-44 border-2 border-foreground bg-heirlock-pink px-4 py-4 text-xs text-foreground lg:block">
+          <div className="absolute -bottom-10 -right-4 hidden w-44 border-2 border-foreground bg-heirlock-pink px-4 py-4 text-xs font-mono text-foreground lg:block">
             Next update in 36 seconds
           </div>
         </div>

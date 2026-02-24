@@ -54,11 +54,11 @@ const FEATURES = [
 
 export function Features() {
   return (
-    <section id="signals" className="relative border-t-2 border-foreground">
+    <section id="signals" className="relative border-t-2 border-foreground reveal-soft reveal-delay-1">
       <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-muted">
+            <p className="text-xs font-mono uppercase tracking-[0.3em] text-muted">
               Signal suite
             </p>
             <h2 className="mt-3 text-3xl font-semibold uppercase tracking-tight text-foreground sm:text-4xl">
@@ -77,10 +77,10 @@ export function Features() {
             return (
               <div
                 key={feature.title}
-                className="group border-2 border-foreground bg-surface p-6 shadow-[6px_6px_0_0_#1a1a1a] transition-transform hover:-translate-y-1"
+                className="group border-2 border-foreground bg-surface p-6 shadow-[6px_6px_0_0_#1a1a1a] hover-lift"
               >
                 <div className="flex items-center justify-between">
-                  <span className="border-2 border-foreground bg-heirlock-yellow px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-foreground">
+                  <span className="border-2 border-foreground bg-heirlock-yellow px-3 py-1 text-[10px] font-mono uppercase tracking-[0.24em] text-foreground">
                     {feature.tag}
                   </span>
                   <span className="flex h-10 w-10 items-center justify-center border-2 border-foreground bg-heirlock-blue">
