@@ -36,11 +36,11 @@ export function UnderConstructionModal() {
       aria-modal="true"
       aria-label="Project under construction"
     >
-      <div className="relative w-[92vw] max-w-lg rounded-3xl border border-foreground/15 bg-surface p-8 shadow-2xl">
+      <div className="relative w-[92vw] max-w-lg border-2 border-foreground bg-surface p-8 shadow-[8px_8px_0_0_#1a1a1a]">
         <button
           onClick={handleClose}
           aria-label="Close"
-          className="absolute right-4 top-4 rounded-full border border-foreground/20 bg-surface p-2 text-foreground/60 hover:text-foreground transition-colors"
+          className="absolute right-4 top-4 border-2 border-foreground bg-heirlock-yellow p-2 text-foreground"
         >
           <X className="h-4 w-4" />
         </button>
@@ -49,7 +49,7 @@ export function UnderConstructionModal() {
           <div className="text-xs uppercase tracking-[0.3em] text-muted">
             Notice
           </div>
-          <h2 className="text-2xl font-semibold leading-tight text-foreground">
+          <h2 className="text-2xl font-semibold uppercase leading-tight text-foreground">
             This project is under construction
           </h2>
           <p className="text-sm leading-relaxed text-foreground/70">
@@ -60,14 +60,14 @@ export function UnderConstructionModal() {
           <div className="flex flex-col gap-3 pt-2 sm:flex-row">
             <button
               onClick={handleClose}
-              className="w-full rounded-full border border-foreground/20 bg-foreground px-6 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-background hover:bg-primary hover:text-white transition-colors"
+              className="w-full border-2 border-foreground bg-foreground px-6 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-background"
             >
               Continue to preview
             </button>
             <a
               href="#architecture"
               onClick={handleClose}
-              className="w-full rounded-full border border-foreground/20 bg-surface px-6 py-3 text-center text-xs font-semibold uppercase tracking-[0.22em] text-foreground hover:border-foreground/60 transition-colors"
+              className="w-full border-2 border-foreground bg-surface px-6 py-3 text-center text-xs font-semibold uppercase tracking-[0.22em] text-foreground"
             >
               Review architecture
             </a>
