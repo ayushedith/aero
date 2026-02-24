@@ -1,166 +1,133 @@
-"use client";
+import Link from "next/link";
+import { Activity, Database, ShieldCheck, ArrowUpRight } from "lucide-react";
 
-import { useEffect, useState, useRef } from "react";
-import { ArrowDown } from "lucide-react";
+const METRICS = [
+  { label: "EC2 instances", value: "4", note: "3 running" },
+  { label: "S3 buckets", value: "7", note: "2.4 TB" },
+  { label: "Monthly spend", value: "$142", note: "Forecast $231" },
+  { label: "Uptime", value: "99.97%", note: "Last 30 days" },
+] as const;
 
-const TITLE_LINES = [
-  "SERVERLESS",
-  "CLOUD",
-  "INFRASTRUCTURE",
-  "MONITOR_",
-];
-
-const SUBTITLE = "Real-time AWS telemetry. Zero enterprise bloat.";
+const SIGNALS = [
+  { label: "Compute", icon: Activity, value: "CPU steady" },
+  { label: "Storage", icon: Database, value: "Ingress normal" },
+  { label: "Security", icon: ShieldCheck, value: "No incidents" },
+] as const;
 
 export function Hero() {
-  const [visibleLines, setVisibleLines] = useState(0);
-  const [subtitleVisible, setSubtitleVisible] = useState(false);
-  const [statusDots, setStatusDots] = useState(0);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    // Stagger title lines
-    const lineTimer = setInterval(() => {
-      setVisibleLines((prev) => {
-        if (prev >= TITLE_LINES.length) {
-          clearInterval(lineTimer);
-          setTimeout(() => setSubtitleVisible(true), 300);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 200);
-
-    // Animate status dots
-    intervalRef.current = setInterval(() => {
-      setStatusDots((prev) => (prev + 1) % 4);
-    }, 500);
-
-    return () => {
-      clearInterval(lineTimer);
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, []);
-
   return (
-    <section className="relative flex min-h-screen flex-col justify-center px-6 pt-20 scanlines">
-      {/* Grid background */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage:
-            "linear-gradient(var(--color-foreground) 1px, transparent 1px), linear-gradient(90deg, var(--color-foreground) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
+    <section id="overview" className="relative overflow-hidden">
+      <div className="absolute inset-0 bg-grid-soft opacity-60" />
+      <div className="absolute inset-0 bg-noise opacity-40" />
+      <div className="absolute -top-32 right-[-120px] h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle_at_center,rgba(255,90,31,0.35),transparent_65%)] blur-3xl" />
+      <div className="absolute bottom-[-120px] left-[-120px] h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle_at_center,rgba(14,165,164,0.35),transparent_65%)] blur-3xl" />
 
-      <div className="relative z-20 mx-auto w-full max-w-6xl">
-        {/* Status bar */}
-        <div className="mb-8 flex items-center gap-3 font-mono text-xs tracking-wider text-foreground/50">
-          <span className="inline-block h-2 w-2 bg-accent animate-pulse" />
-          <span>SYSTEM STATUS: OPERATIONAL{".".repeat(statusDots)}</span>
-          <span className="hidden sm:inline">|</span>
-          <span className="hidden sm:inline">PID: 2026</span>
-          <span className="hidden sm:inline">|</span>
-          <span className="hidden sm:inline">UPTIME: 99.97%</span>
+      <div className="relative mx-auto grid max-w-6xl gap-12 px-6 pb-20 pt-28 lg:grid-cols-[1.1fr_0.9fr]">
+        <div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-foreground/15 bg-surface px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-muted">
+            <span className="h-2 w-2 rounded-full bg-primary" />
+            Serverless Cloud Monitor
+          </div>
+          <h1 className="mt-6 text-4xl font-semibold leading-tight text-foreground sm:text-5xl lg:text-6xl">
+            A focused monitor for AWS teams that want signal, not noise
+          </h1>
+          <p className="mt-6 max-w-xl text-lg text-foreground/70">
+            AERO aggregates compute, storage, and billing telemetry into a
+            single dashboard. It uses secure serverless routes to deliver clear
+            metrics without exposing credentials.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center justify-center rounded-full border border-foreground/20 bg-foreground px-6 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-background shadow-sm hover:bg-primary hover:text-white transition-colors"
+            >
+              Launch dashboard
+            </Link>
+            <a
+              href="#architecture"
+              className="inline-flex items-center justify-center rounded-full border border-foreground/20 bg-surface px-6 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-foreground hover:border-foreground/60 transition-colors"
+            >
+              View architecture
+            </a>
+          </div>
+
+          <div className="mt-12 grid grid-cols-2 gap-4">
+            {METRICS.map((metric) => (
+              <div
+                key={metric.label}
+                className="rounded-2xl border border-foreground/10 bg-surface px-4 py-4 shadow-sm"
+              >
+                <p className="text-xs uppercase tracking-[0.2em] text-muted">
+                  {metric.label}
+                </p>
+                <p className="mt-2 text-2xl font-semibold text-foreground">
+                  {metric.value}
+                </p>
+                <p className="text-xs text-muted">{metric.note}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Main title */}
-        <div className="mb-8">
-          {TITLE_LINES.map((line, i) => (
-            <h1
-              key={i}
-              className={`font-mono text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black leading-[0.9] tracking-tighter transition-all duration-500 ${
-                i < visibleLines
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-8 opacity-0"
-              } ${i === TITLE_LINES.length - 1 ? "text-accent" : "text-foreground"}`}
-            >
-              {line}
-            </h1>
-          ))}
-        </div>
-
-        {/* Subtitle */}
-        <p
-          className={`max-w-xl font-mono text-lg sm:text-xl text-foreground/60 leading-relaxed transition-all duration-700 ${
-            subtitleVisible
-              ? "translate-y-0 opacity-100"
-              : "translate-y-4 opacity-0"
-          }`}
-        >
-          {SUBTITLE}
-        </p>
-
-        {/* Brutalist info strip */}
-        <div
-          className={`mt-12 flex flex-wrap gap-0 transition-all duration-700 delay-300 ${
-            subtitleVisible
-              ? "translate-y-0 opacity-100"
-              : "translate-y-4 opacity-0"
-          }`}
-        >
-          {[
-            { label: "STACK", value: "NEXT.JS + AWS SDK V3" },
-            { label: "AUTH", value: "NEXTAUTH.JS" },
-            { label: "RENDER", value: "SERVERLESS" },
-            { label: "STATUS", value: "IN DEVELOPMENT" },
-          ].map((item, i) => (
-            <div
-              key={i}
-              className="border-2 border-foreground/20 px-4 py-3 sm:px-6 sm:py-4 hover:border-accent hover:bg-accent/5 transition-all group"
-            >
-              <span className="block font-mono text-[10px] tracking-widest text-foreground/40 group-hover:text-accent/60">
-                {item.label}
-              </span>
-              <span className="block font-mono text-xs sm:text-sm font-bold tracking-wider text-foreground group-hover:text-accent">
-                {item.value}
-              </span>
+        <div className="relative">
+          <div className="rounded-3xl border border-foreground/15 bg-surface px-6 py-6 panel-glow">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-semibold text-foreground">
+                  Live telemetry
+                </p>
+                <p className="text-xs text-muted">Updated just now</p>
+              </div>
+              <div className="rounded-full border border-foreground/10 bg-surface-alt px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-muted">
+                Region us east 1
+              </div>
             </div>
-          ))}
+
+            <div className="mt-6 grid gap-4">
+              {SIGNALS.map((signal) => {
+                const Icon = signal.icon;
+                return (
+                  <div
+                    key={signal.label}
+                    className="flex items-center justify-between rounded-2xl border border-foreground/10 bg-surface-alt px-4 py-4"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-background">
+                        <Icon className="h-5 w-5 text-primary" />
+                      </span>
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">
+                          {signal.label}
+                        </p>
+                        <p className="text-xs text-muted">{signal.value}</p>
+                      </div>
+                    </div>
+                    <ArrowUpRight className="h-4 w-4 text-foreground/40" />
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-6 rounded-2xl border border-foreground/10 bg-background px-4 py-4">
+              <p className="text-xs uppercase tracking-[0.2em] text-muted">
+                Budget status
+              </p>
+              <div className="mt-3 flex items-center justify-between">
+                <p className="text-sm font-semibold text-foreground">
+                  78 percent of monthly target
+                </p>
+                <span className="text-xs text-muted">3 days left</span>
+              </div>
+              <div className="mt-3 h-2 w-full rounded-full bg-surface-alt">
+                <div className="h-2 w-[78%] rounded-full bg-[linear-gradient(90deg,#ff5a1f,#ff8a4c,#0ea5a4)] shimmer" />
+              </div>
+            </div>
+          </div>
+
+          <div className="absolute -bottom-10 -right-4 hidden w-40 rounded-2xl border border-foreground/10 bg-surface px-4 py-4 text-xs text-muted shadow-sm lg:block float-fast">
+            Next update in 36 seconds
+          </div>
         </div>
-
-        {/* CTA Buttons */}
-        <div
-          className={`mt-12 flex flex-col sm:flex-row gap-4 transition-all duration-700 delay-500 ${
-            subtitleVisible
-              ? "translate-y-0 opacity-100"
-              : "translate-y-4 opacity-0"
-          }`}
-        >
-          <a
-            href="/dashboard"
-            className="border-2 border-accent bg-accent px-8 py-4 font-mono text-sm font-bold uppercase tracking-widest text-background hover:bg-transparent hover:text-accent transition-all inline-flex items-center gap-2"
-          >
-            <span className="h-2 w-2 bg-background inline-block" />
-            ENTER DASHBOARD
-          </a>
-          <a
-            href="#architecture"
-            className="border-2 border-foreground/30 px-8 py-4 font-mono text-sm uppercase tracking-widest text-foreground/70 hover:border-foreground hover:text-foreground transition-all inline-flex items-center gap-2"
-          >
-            VIEW ARCHITECTURE ↓
-          </a>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
-        <a
-          href="#features"
-          className="flex flex-col items-center gap-2 font-mono text-xs tracking-widest text-foreground/30 hover:text-accent transition-colors"
-        >
-          <span>SCROLL</span>
-          <ArrowDown className="h-4 w-4 animate-bounce" />
-        </a>
-      </div>
-
-      {/* Corner decorations */}
-      <div className="absolute top-20 right-6 z-20 hidden lg:block font-mono text-[10px] text-foreground/15 text-right leading-relaxed">
-        <div>{"// AERO v0.1.0"}</div>
-        <div>{"// (c) 2026"}</div>
-        <div>{"// serverless cloud monitor"}</div>
-        <div>{"// built with next.js"}</div>
       </div>
     </section>
   );

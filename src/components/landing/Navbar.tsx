@@ -2,77 +2,86 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Terminal } from "lucide-react";
+import { Menu, X, Radar } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "Features", href: "#features" },
+  { label: "Overview", href: "#overview" },
+  { label: "Signals", href: "#signals" },
   { label: "Architecture", href: "#architecture" },
-  { label: "Terminal", href: "#terminal" },
+  { label: "Insights", href: "#insights" },
 ] as const;
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b-2 border-foreground bg-background/90 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <Terminal className="h-5 w-5 text-accent" />
-          <span className="font-mono text-lg font-bold tracking-widest text-foreground group-hover:text-accent transition-colors">
-            AERO<span className="text-accent">_</span>
-          </span>
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b-2 border-foreground bg-background">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <Link href="/" className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center border-2 border-foreground bg-heirlock-blue">
+            <Radar className="h-4 w-4 text-foreground" />
+          </div>
+          <div>
+            <div className="text-base font-semibold uppercase tracking-[0.32em] text-foreground">
+              AERO
+            </div>
+            <div className="text-[10px] uppercase tracking-[0.28em] text-muted">
+              Cloud Monitor
+            </div>
+          </div>
         </Link>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-4">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="px-4 py-2 font-mono text-sm uppercase tracking-wider text-foreground/70 hover:text-accent hover:bg-accent/5 border border-transparent hover:border-accent/30 transition-all"
+              className="border-2 border-transparent px-3 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-foreground/70 hover:border-foreground hover:text-foreground transition-colors"
             >
-              [{link.label}]
+              {link.label}
             </a>
           ))}
+          <span className="brutalist-chip px-3 py-1 text-[10px] uppercase tracking-[0.22em]">
+            Preview
+          </span>
           <Link
             href="/dashboard"
-            className="ml-4 border-2 border-accent bg-accent/10 px-5 py-2 font-mono text-sm font-bold uppercase tracking-wider text-accent hover:bg-accent hover:text-background transition-all"
+            className="brutalist-cutout px-5 py-2 text-xs font-semibold uppercase tracking-[0.22em]"
           >
-            Launch →
+            Launch
           </Link>
         </div>
 
-        {/* Mobile toggle */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden border-2 border-foreground p-2 hover:border-accent hover:text-accent transition-colors"
+          className="md:hidden border-2 border-foreground bg-heirlock-yellow p-2 text-foreground"
           aria-label="Toggle menu"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       {open && (
         <div className="md:hidden border-t-2 border-foreground bg-background">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
+          <div className="px-6 py-4 space-y-3">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="block border-2 border-foreground bg-surface px-4 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-foreground"
+              >
+                {link.label}
+              </a>
+            ))}
+            <Link
+              href="/dashboard"
               onClick={() => setOpen(false)}
-              className="block border-b border-border px-6 py-4 font-mono text-sm uppercase tracking-wider text-foreground/70 hover:bg-accent/5 hover:text-accent transition-colors"
+              className="brutalist-cutout inline-flex w-full items-center justify-center px-5 py-3 text-xs font-semibold uppercase tracking-[0.22em]"
             >
-              {'>'} {link.label}
-            </a>
-          ))}
-          <Link
-            href="/dashboard"
-            onClick={() => setOpen(false)}
-            className="block border-b border-accent bg-accent/10 px-6 py-4 font-mono text-sm font-bold uppercase tracking-wider text-accent hover:bg-accent hover:text-background transition-all"
-          >
-            {'>'} LAUNCH DASHBOARD →
-          </Link>
+              Launch
+            </Link>
+          </div>
         </div>
       )}
     </nav>

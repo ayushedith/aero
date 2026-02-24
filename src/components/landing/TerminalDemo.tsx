@@ -1,132 +1,104 @@
-"use client";
+const INSIGHTS = [
+  {
+    time: "09:24",
+    title: "EC2 load stable",
+    detail: "Average CPU holding at 31 percent across three instances",
+  },
+  {
+    time: "09:27",
+    title: "S3 growth detected",
+    detail: "New uploads increased storage by 18 GB in the last hour",
+  },
+  {
+    time: "09:31",
+    title: "Cost anomaly watch",
+    detail: "Compute spend trending above baseline by 9 percent",
+  },
+  {
+    time: "09:35",
+    title: "Security posture",
+    detail: "No new access events outside expected regions",
+  },
+] as const;
 
-import { useEffect, useState } from "react";
-
-const TERMINAL_LINES = [
-  { type: "input" as const, text: "$ aero status --region us-east-1" },
-  { type: "output" as const, text: "" },
-  { type: "output" as const, text: "  AERO Cloud Monitor v0.1.0" },
-  { type: "output" as const, text: "  ─────────────────────────────────────" },
-  { type: "output" as const, text: "" },
-  { type: "output" as const, text: "  ▸ Fetching EC2 instances..." },
-  {
-    type: "success" as const,
-    text: "  ✓ 4 instances found (3 running, 1 stopped)",
-  },
-  { type: "output" as const, text: "" },
-  { type: "output" as const, text: "  ▸ Scanning S3 buckets..." },
-  {
-    type: "success" as const,
-    text: "  ✓ 7 buckets | 2.4 TB total | 847K objects",
-  },
-  { type: "output" as const, text: "" },
-  { type: "output" as const, text: "  ▸ Pulling billing data..." },
-  {
-    type: "success" as const,
-    text: "  ✓ MTD spend: $142.87 | Projected: $231.40",
-  },
-  {
-    type: "warning" as const,
-    text: "  ⚠ Budget alert: 78% of monthly limit reached",
-  },
-  { type: "output" as const, text: "" },
-  { type: "output" as const, text: "  ─────────────────────────────────────" },
-  {
-    type: "output" as const,
-    text: "  Dashboard ready at https://localhost:3000",
-  },
-  { type: "output" as const, text: "" },
-  { type: "input" as const, text: "$ █" },
-];
+const BARS = [32, 45, 38, 62, 58, 41, 72, 66, 54, 61, 49, 57] as const;
 
 export function TerminalDemo() {
-  const [visibleLines, setVisibleLines] = useState(0);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          let lineIndex = 0;
-          const timer = setInterval(() => {
-            lineIndex++;
-            setVisibleLines(lineIndex);
-            if (lineIndex >= TERMINAL_LINES.length) {
-              clearInterval(timer);
-            }
-          }, 120);
-
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    const el = document.getElementById("terminal-demo");
-    if (el) observer.observe(el);
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="terminal" className="relative border-t-2 border-foreground">
-      {/* Section header */}
-      <div className="border-b-2 border-foreground bg-surface px-6 py-4">
-        <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <h2 className="font-mono text-sm font-bold uppercase tracking-widest text-foreground">
-            // TERMINAL_OUTPUT
-          </h2>
-          <span className="font-mono text-xs tracking-wider text-foreground/40">
-            LIVE PREVIEW
-          </span>
-        </div>
-      </div>
-
+    <section id="insights" className="relative border-t border-foreground/10">
       <div className="mx-auto max-w-6xl px-6 py-16">
-        <div
-          id="terminal-demo"
-          className="border-2 border-foreground/30 bg-[#0c0c0c] overflow-hidden"
-        >
-          {/* Terminal title bar */}
-          <div className="flex items-center justify-between border-b-2 border-foreground/20 bg-[#1a1a1a] px-4 py-2">
-            <div className="flex items-center gap-2">
-              <span className="h-3 w-3 border border-foreground/30 bg-danger/70" />
-              <span className="h-3 w-3 border border-foreground/30 bg-warning/70" />
-              <span className="h-3 w-3 border border-foreground/30 bg-accent/70" />
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
+          <div className="flex-1">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted">
+              Insights
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold text-foreground sm:text-4xl">
+              Streamlined telemetry that highlights what matters
+            </h2>
+            <p className="mt-5 text-sm text-foreground/60">
+              Alerts are summarized in plain language so you can decide quickly.
+              Every signal is derived from server side AWS SDK calls and only
+              shows safe data.
+            </p>
+
+            <div className="mt-8 space-y-4">
+              {INSIGHTS.map((insight) => (
+                <div
+                  key={insight.time}
+                  className="rounded-2xl border border-foreground/10 bg-surface px-5 py-4 shadow-sm"
+                >
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-semibold text-foreground">
+                      {insight.title}
+                    </p>
+                    <span className="text-xs uppercase tracking-[0.2em] text-muted">
+                      {insight.time}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-xs text-muted">{insight.detail}</p>
+                </div>
+              ))}
             </div>
-            <span className="font-mono text-[10px] tracking-wider text-foreground/30">
-              aero — bash — 80x24
-            </span>
-            <span className="font-mono text-[10px] text-foreground/20">
-              ×
-            </span>
           </div>
 
-          {/* Terminal content */}
-          <div className="p-6 min-h-[400px]">
-            {TERMINAL_LINES.slice(0, visibleLines).map((line, i) => (
-              <div
-                key={i}
-                className={`font-mono text-sm leading-7 ${
-                  line.type === "input"
-                    ? "text-foreground"
-                    : line.type === "success"
-                    ? "text-accent"
-                    : line.type === "warning"
-                    ? "text-warning"
-                    : "text-foreground/60"
-                }`}
-              >
-                {line.text || "\u00A0"}
+          <div className="w-full max-w-md">
+            <div className="rounded-3xl border border-foreground/10 bg-surface px-6 py-6 shadow-sm">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-foreground">
+                    Live signal strength
+                  </p>
+                  <p className="text-xs text-muted">Last 60 minutes</p>
+                </div>
+                <span className="rounded-full border border-foreground/10 bg-surface-alt px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-muted">
+                  Stream
+                </span>
               </div>
-            ))}
+
+              <div className="mt-6 grid grid-cols-12 items-end gap-2">
+                {BARS.map((value, index) => (
+                  <div
+                    key={index}
+                    className="rounded-full bg-[linear-gradient(180deg,#0ea5a4,#ff5a1f)]"
+                    style={{ height: `${value}%` }}
+                  />
+                ))}
+              </div>
+
+              <div className="mt-6 rounded-2xl border border-foreground/10 bg-background px-4 py-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-muted">
+                  Signal confidence
+                </p>
+                <p className="mt-2 text-2xl font-semibold text-foreground">
+                  92 percent
+                </p>
+                <p className="text-xs text-muted">
+                  Based on CloudWatch and Cost Explorer stability
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Caption */}
-        <p className="mt-4 font-mono text-xs text-foreground/30 text-center">
-          ↑ Simulated output. Actual data fetched from your AWS account via
-          server-side API routes.
-        </p>
       </div>
     </section>
   );

@@ -31,41 +31,43 @@ export function UnderConstructionModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[999] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+      className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-label="Project under construction"
     >
-      <div className="relative w-[92vw] max-w-lg border-2 border-foreground bg-surface p-8 shadow-2xl brutalist-glow">
+      <div className="relative w-[92vw] max-w-lg rounded-3xl border border-foreground/15 bg-surface p-8 shadow-2xl">
         <button
           onClick={handleClose}
           aria-label="Close"
-          className="absolute right-3 top-3 border-2 border-foreground/40 px-2 py-1 font-mono text-xs text-foreground/70 hover:border-accent hover:text-accent transition-colors"
+          className="absolute right-4 top-4 rounded-full border border-foreground/20 bg-surface p-2 text-foreground/60 hover:text-foreground transition-colors"
         >
           <X className="h-4 w-4" />
         </button>
 
         <div className="space-y-4">
-          <div className="font-mono text-sm uppercase tracking-widest text-accent">
+          <div className="text-xs uppercase tracking-[0.3em] text-muted">
             Notice
           </div>
-          <h2 className="font-mono text-2xl font-black leading-tight text-foreground">
+          <h2 className="text-2xl font-semibold leading-tight text-foreground">
             This project is under construction
           </h2>
-          <p className="font-mono text-sm leading-relaxed text-foreground/70">
-            You are viewing a work in progress prototype for a serverless cloud infrastructure monitor. Features may change as development continues. Your feedback is welcome while we refine the experience.
+          <p className="text-sm leading-relaxed text-foreground/70">
+            You are viewing a work in progress prototype for a serverless cloud
+            infrastructure monitor. Features may change as development
+            continues. Your feedback is welcome while we refine the experience.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+          <div className="flex flex-col gap-3 pt-2 sm:flex-row">
             <button
               onClick={handleClose}
-              className="w-full border-2 border-accent bg-accent px-6 py-3 font-mono text-sm font-bold uppercase tracking-widest text-background hover:bg-transparent hover:text-accent transition-all"
+              className="w-full rounded-full border border-foreground/20 bg-foreground px-6 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-background hover:bg-primary hover:text-white transition-colors"
             >
               Continue to preview
             </button>
             <a
               href="#architecture"
               onClick={handleClose}
-              className="w-full border-2 border-foreground/40 px-6 py-3 text-center font-mono text-sm uppercase tracking-widest text-foreground/70 hover:border-foreground hover:text-foreground transition-all"
+              className="w-full rounded-full border border-foreground/20 bg-surface px-6 py-3 text-center text-xs font-semibold uppercase tracking-[0.22em] text-foreground hover:border-foreground/60 transition-colors"
             >
               Review architecture
             </a>

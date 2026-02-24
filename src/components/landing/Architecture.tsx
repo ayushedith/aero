@@ -1,114 +1,101 @@
+const PIPELINE = [
+  {
+    title: "Client request",
+    description:
+      "The dashboard sends secure requests for compute, storage, and billing data.",
+  },
+  {
+    title: "Serverless routes",
+    description:
+      "Next.js API routes authenticate, fetch, and normalize AWS telemetry.",
+  },
+  {
+    title: "AWS services",
+    description:
+      "EC2, S3, CloudWatch, and Cost Explorer provide raw operational signals.",
+  },
+  {
+    title: "Curated response",
+    description:
+      "Only safe, structured JSON is returned to the client for rendering.",
+  },
+] as const;
+
+const PRINCIPLES = [
+  {
+    title: "Credential isolation",
+    desc: "Secrets stay on the server and never reach the browser.",
+  },
+  {
+    title: "Least privilege",
+    desc: "IAM policies limit access to read only telemetry endpoints.",
+  },
+  {
+    title: "Fast by default",
+    desc: "Serverless delivery and Suspense keep first paint responsive.",
+  },
+  {
+    title: "Composable modules",
+    desc: "Each service view can evolve without breaking the core.",
+  },
+] as const;
+
 export function Architecture() {
   return (
-    <section
-      id="architecture"
-      className="relative border-t-2 border-foreground"
-    >
-      {/* Section header */}
-      <div className="border-b-2 border-foreground bg-surface px-6 py-4">
-        <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <h2 className="font-mono text-sm font-bold uppercase tracking-widest text-foreground">
-            // SYSTEM_ARCHITECTURE
-          </h2>
-          <span className="font-mono text-xs tracking-wider text-foreground/40">
-            DATA FLOW DIAGRAM
-          </span>
-        </div>
-      </div>
-
+    <section id="architecture" className="relative border-t border-foreground/10">
       <div className="mx-auto max-w-6xl px-6 py-16">
-        {/* ASCII-style architecture diagram */}
-        <div className="overflow-x-auto">
-          <pre className="font-mono text-xs sm:text-sm leading-relaxed text-foreground/70 whitespace-pre">
-            {`
-  ┌─────────────────────────────────────────────────────────────┐
-  │                      CLIENT (BROWSER)                       │
-  │                                                             │
-  │   ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  │
-  │   │ EC2 View │  │ S3 View  │  │ Billing  │  │ Alerts   │  │
-  │   │  React   │  │  React   │  │  React   │  │  React   │  │
-  │   │ Suspense │  │ Suspense │  │ Suspense │  │ Suspense │  │
-  │   └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘  │
-  │        │              │              │              │        │
-  │        └──────────────┴──────┬───────┴──────────────┘        │
-  │                              │                               │
-  │                     fetch('/api/*')                          │
-  │                        JSON only                            │
-  │                     ↕ NO AWS CREDS                          │
-  └──────────────────────┬───────────────────────────────────────┘
-                         │
-                         │ HTTPS
-                         │
-  ┌──────────────────────┴───────────────────────────────────────┐
-  │                   NEXT.JS API ROUTES                         │
-  │                  (Serverless Functions)                       │
-  │                                                              │
-  │   ┌──────────────────────────────────────────────────────┐   │
-  │   │  /api/ec2     → DescribeInstances, GetMetricData     │   │
-  │   │  /api/s3      → ListBuckets, GetBucketMetrics        │   │
-  │   │  /api/billing → GetCostAndUsage                      │   │
-  │   │  /api/auth    → NextAuth.js session management       │   │
-  │   └──────────────────────────┬───────────────────────────┘   │
-  │                              │                               │
-  │                   AWS SDK v3 (server-side)                   │
-  │                   Scoped IAM credentials                    │
-  │                   env: AWS_ACCESS_KEY_ID                    │
-  │                   env: AWS_SECRET_ACCESS_KEY                │
-  └──────────────────────┬───────────────────────────────────────┘
-                         │
-                         │ AWS API calls
-                         │
-  ┌──────────────────────┴───────────────────────────────────────┐
-  │                      AWS SERVICES                            │
-  │                                                              │
-  │   ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-  │   │   EC2    │  │    S3    │  │CloudWatch│  │Cost Expl.│   │
-  │   │         │  │         │  │         │  │         │   │
-  │   └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
-  └──────────────────────────────────────────────────────────────┘
-`}
-          </pre>
-        </div>
+        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-muted">
+              Architecture
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold text-foreground sm:text-4xl">
+              Built for trust, speed, and clear data flow
+            </h2>
+            <p className="mt-5 text-sm text-foreground/60">
+              The backend is a set of serverless endpoints that pull telemetry
+              using scoped credentials. The client only receives normalized
+              payloads and renders them with Suspense for near instant load.
+            </p>
 
-        {/* Architecture principles */}
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
-          {[
-            {
-              num: "01",
-              title: "CREDENTIAL ISOLATION",
-              desc: "AWS keys exist only in server environment. Client receives sanitized JSON payloads.",
-            },
-            {
-              num: "02",
-              title: "SERVERLESS BACKEND",
-              desc: "No Express, no standalone server. Next.js API routes handle all data fetching.",
-            },
-            {
-              num: "03",
-              title: "ASYNC STREAMING",
-              desc: "React Suspense boundaries ensure instant paint. Metrics load progressively.",
-            },
-            {
-              num: "04",
-              title: "SCOPED ACCESS",
-              desc: "IAM policies follow least privilege. Read-only access to monitoring endpoints only.",
-            },
-          ].map((principle) => (
-            <div
-              key={principle.num}
-              className="border-2 border-foreground/10 p-6 hover:border-accent transition-colors group"
-            >
-              <span className="font-mono text-3xl font-black text-foreground/10 group-hover:text-accent/30 transition-colors">
-                {principle.num}
-              </span>
-              <h3 className="mt-2 font-mono text-sm font-bold tracking-wider text-foreground group-hover:text-accent transition-colors">
-                {principle.title}
-              </h3>
-              <p className="mt-2 font-mono text-xs leading-relaxed text-foreground/40 group-hover:text-foreground/60 transition-colors">
-                {principle.desc}
-              </p>
+            <div className="mt-8 space-y-4">
+              {PIPELINE.map((step, index) => (
+                <div
+                  key={step.title}
+                  className="flex items-start gap-4 rounded-2xl border border-foreground/10 bg-surface px-4 py-4"
+                >
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-foreground text-xs font-semibold text-background">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">
+                      {step.title}
+                    </p>
+                    <p className="text-xs text-muted">{step.description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+
+          <div className="rounded-3xl border border-foreground/10 bg-surface px-6 py-6 shadow-sm">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted">
+              Design principles
+            </p>
+            <div className="mt-6 space-y-4">
+              {PRINCIPLES.map((principle) => (
+                <div
+                  key={principle.title}
+                  className="rounded-2xl border border-foreground/10 bg-background px-4 py-4"
+                >
+                  <p className="text-sm font-semibold text-foreground">
+                    {principle.title}
+                  </p>
+                  <p className="text-xs text-muted">{principle.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,21 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const atlasSans = Space_Grotesk({
+  variable: "--font-atlas-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const atlasMono = IBM_Plex_Mono({
+  variable: "--font-atlas-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "AERO - Serverless Cloud Infrastructure Monitor",
+  title: "AERO | Serverless Cloud Infrastructure Monitor",
   description:
-    "A lightweight, brutalist dashboard for monitoring AWS cloud resources. EC2 health, S3 usage, and billing metrics — no enterprise bloat.",
+    "A focused, serverless dashboard for AWS telemetry. Monitor compute, storage, and cost signals with clarity and speed.",
   keywords: [
     "AWS",
     "cloud monitoring",
@@ -24,6 +27,7 @@ export const metadata: Metadata = {
     "S3",
     "dashboard",
     "infrastructure",
+    "observability",
   ],
 };
 
@@ -33,9 +37,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${atlasSans.variable} ${atlasMono.variable} antialiased bg-background text-foreground`}
       >
         {children}
       </body>
