@@ -1,67 +1,60 @@
-import { Terminal } from "lucide-react";
+import { Radar } from "lucide-react";
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t-2 border-foreground bg-surface">
+    <footer className="border-t border-foreground/10 bg-surface">
       <div className="mx-auto max-w-6xl px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
+        <div className="grid gap-8 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Terminal className="h-4 w-4 text-accent" />
-              <span className="font-mono text-sm font-bold tracking-widest">
-                AERO<span className="text-accent">_</span>
-              </span>
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground/20 bg-background">
+                <Radar className="h-4 w-4 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-foreground">AERO</p>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-muted">
+                  Serverless monitor
+                </p>
+              </div>
             </div>
-            <p className="font-mono text-xs text-foreground/40 leading-relaxed">
-              A lean, serverless cloud infrastructure monitor. Built with
-              Next.js, AWS SDK v3, and a distaste for enterprise bloat.
+            <p className="mt-4 text-sm text-foreground/60">
+              AERO delivers a clean view of AWS telemetry with secure serverless
+              data flows and a focus on fast decision making.
             </p>
           </div>
 
-          {/* Stack */}
           <div>
-            <h3 className="font-mono text-xs font-bold tracking-widest text-foreground/60 mb-4">
-              // STACK
-            </h3>
-            <ul className="space-y-2">
-              {[
-                "Next.js (App Router)",
-                "AWS SDK v3",
-                "Tailwind CSS",
-                "Tremor",
-                "NextAuth.js",
-              ].map((tech) => (
-                <li
-                  key={tech}
-                  className="font-mono text-xs text-foreground/40 hover:text-accent transition-colors"
-                >
-                  → {tech}
-                </li>
-              ))}
+            <p className="text-xs uppercase tracking-[0.3em] text-muted">
+              Stack
+            </p>
+            <ul className="mt-4 space-y-2 text-sm text-foreground/60">
+              {["Next.js App Router", "AWS SDK v3", "Tailwind CSS", "Tremor", "NextAuth.js"].map(
+                (tech) => (
+                  <li key={tech}>{tech}</li>
+                )
+              )}
             </ul>
           </div>
 
-          {/* Links */}
           <div>
-            <h3 className="font-mono text-xs font-bold tracking-widest text-foreground/60 mb-4">
-              // LINKS
-            </h3>
-            <ul className="space-y-2">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted">
+              Links
+            </p>
+            <ul className="mt-4 space-y-2 text-sm text-foreground/60">
               {[
                 { label: "GitHub", href: "https://github.com" },
-                { label: "Documentation", href: "#" },
                 { label: "Architecture", href: "#architecture" },
-                { label: "Report Bug", href: "#" },
+                { label: "Insights", href: "#insights" },
+                { label: "Contact", href: "#" },
               ].map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="font-mono text-xs text-foreground/40 hover:text-accent transition-colors"
+                    className="hover:text-foreground transition-colors"
                   >
-                    → {link.label}
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -69,14 +62,9 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-12 border-t border-foreground/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="font-mono text-[10px] tracking-wider text-foreground/25">
-            © {year} AERO. 12 PROJECTS IN 12 MONTHS. ALL SYSTEMS NOMINAL.
-          </span>
-          <span className="font-mono text-[10px] tracking-wider text-foreground/25">
-            BUILT BY AYUSH — NOT AN ENTERPRISE PRODUCT
-          </span>
+        <div className="mt-10 flex flex-col gap-2 border-t border-foreground/10 pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+          <span>© {year} AERO. 12 projects in 12 months.</span>
+          <span>Built by Ayush for the portfolio challenge.</span>
         </div>
       </div>
     </footer>

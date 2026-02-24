@@ -2,44 +2,45 @@ import Link from "next/link";
 
 export function CTA() {
   return (
-    <section className="relative border-t-2 border-foreground">
-      <div className="mx-auto max-w-6xl px-6 py-24 text-center">
-        {/* Brutalist large text */}
-        <h2 className="font-mono text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.95]">
-          STOP GUESSING.
-          <br />
-          <span className="text-accent">START MONITORING.</span>
-        </h2>
-
-        <p className="mt-8 mx-auto max-w-lg font-mono text-sm text-foreground/50 leading-relaxed">
-          Deploy your own cloud infrastructure monitor in minutes. Connect your
-          AWS credentials, configure your IAM policies, and get real-time
-          visibility into your infrastructure.
-        </p>
-
-        {/* Action buttons */}
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            href="/dashboard"
-            className="border-2 border-accent bg-accent px-10 py-5 font-mono text-base font-bold uppercase tracking-widest text-background hover:bg-transparent hover:text-accent transition-all"
-          >
-            LAUNCH DASHBOARD →
-          </Link>
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border-2 border-foreground/30 px-10 py-5 font-mono text-base uppercase tracking-widest text-foreground/60 hover:border-foreground hover:text-foreground transition-all"
-          >
-            VIEW SOURCE ↗
-          </a>
-        </div>
-
-        {/* Version tag */}
-        <div className="mt-16 inline-block border border-foreground/10 px-4 py-2">
-          <span className="font-mono text-[10px] tracking-widest text-foreground/30">
-            AERO v0.1.0 — BUILT AS PART OF 12 PROJECTS IN 12 MONTHS
-          </span>
+    <section id="cta" className="relative border-t border-foreground/10">
+      <div className="mx-auto max-w-6xl px-6 py-20">
+        <div className="relative overflow-hidden rounded-3xl border border-foreground/10 bg-foreground px-8 py-12 text-background shadow-xl">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.15),transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(14,165,164,0.35),transparent_65%)]" />
+          <div className="relative grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-background/70">
+                Ready to go
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold text-background sm:text-4xl">
+                Turn AWS telemetry into confident decisions
+              </h2>
+              <p className="mt-4 text-sm text-background/80">
+                Connect your AWS account and see compute, storage, and billing
+                signals in one place. AERO is built for engineers who want
+                clarity, speed, and safe data flows.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 lg:items-end lg:justify-center">
+              <Link
+                href="/dashboard"
+                className="inline-flex items-center justify-center rounded-full border border-background/20 bg-background px-6 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-foreground shadow-sm hover:bg-primary hover:text-white transition-colors"
+              >
+                Launch dashboard
+              </Link>
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full border border-background/30 px-6 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-background/90 hover:bg-background/10 transition-colors"
+              >
+                View source
+              </a>
+              <span className="text-[10px] uppercase tracking-[0.25em] text-background/60">
+                Built as part of the 12 projects challenge
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
