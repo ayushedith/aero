@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { Menu, X, Radar } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Overview", href: "#overview" },
@@ -18,17 +19,24 @@ export function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 border-b-2 border-foreground bg-background">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center border-2 border-foreground bg-heirlock-blue hover-lift">
-            <Radar className="h-4 w-4 text-foreground" />
+          <div className="flex h-10 w-10 items-center justify-center hover-lift">
+            <Image
+              src="/logo.png"
+              alt="AERO"
+              width={65}
+              height={60}
+              className="object-contain"
+              priority
+            />
           </div>
-          <div>
+          {/* <div>
             <div className="text-base font-semibold uppercase tracking-[0.32em] text-foreground">
               AERO
             </div>
             <div className="text-[10px] font-mono uppercase tracking-[0.28em] text-muted">
               Cloud Monitor
             </div>
-          </div>
+          </div> */}
         </Link>
 
         <div className="hidden md:flex items-center gap-4">
