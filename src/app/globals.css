@@ -62,7 +62,7 @@ a, button, [role="button"] {
 }
 
 .text-gradient {
-  background: linear-gradient(90deg, #ff5a1f 0%, #0ea5a4 60%, #ff8a4c 100%);
+  background: linear-gradient(90deg, #ff6b35 0%, #0ea5a4 60%, #ffb347 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -104,6 +104,70 @@ a, button, [role="button"] {
     #ffb347 10px,
     #ffb347 20px
   );
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-soft {
+  opacity: 0;
+  animation: fade-up 0.6s ease-out forwards;
+}
+
+.reveal-delay-1 {
+  animation-delay: 0.12s;
+}
+
+.reveal-delay-2 {
+  animation-delay: 0.24s;
+}
+
+.reveal-delay-3 {
+  animation-delay: 0.36s;
+}
+
+@keyframes shimmer-soft {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.loading-sheen {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.05));
+  background-size: 200% 100%;
+  animation: shimmer-soft 2.2s linear infinite;
+}
+
+.hover-lift {
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.hover-lift:hover {
+  transform: translate(-2px, -2px);
+}
+
+.press-down {
+  transition: transform 120ms ease;
+}
+
+.press-down:active {
+  transform: translate(1px, 1px);
+}
+
+.focus-ring:focus-visible {
+  outline: 3px solid var(--color-foreground);
+  outline-offset: 3px;
 }
 
 @keyframes float {

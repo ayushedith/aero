@@ -25,17 +25,17 @@ const BARS = [32, 45, 38, 62, 58, 41, 72, 66, 54, 61, 49, 57] as const;
 
 export function TerminalDemo() {
   return (
-    <section id="insights" className="relative border-t border-foreground/10">
+    <section id="insights" className="relative border-t-2 border-foreground reveal-soft reveal-delay-2">
       <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
           <div className="flex-1">
-            <p className="text-xs uppercase tracking-[0.3em] text-muted">
+            <p className="text-xs font-mono uppercase tracking-[0.3em] text-muted">
               Insights
             </p>
-            <h2 className="mt-3 text-3xl font-semibold text-foreground sm:text-4xl">
+            <h2 className="mt-3 text-3xl font-semibold uppercase tracking-tight text-foreground sm:text-4xl">
               Streamlined telemetry that highlights what matters
             </h2>
-            <p className="mt-5 text-sm text-foreground/60">
+            <p className="mt-5 text-sm text-foreground/70">
               Alerts are summarized in plain language so you can decide quickly.
               Every signal is derived from server side AWS SDK calls and only
               shows safe data.
@@ -45,32 +45,36 @@ export function TerminalDemo() {
               {INSIGHTS.map((insight) => (
                 <div
                   key={insight.time}
-                  className="rounded-2xl border border-foreground/10 bg-surface px-5 py-4 shadow-sm"
+                  className="border-2 border-foreground bg-surface px-5 py-4 shadow-[6px_6px_0_0_#1a1a1a] hover-lift"
                 >
                   <div className="flex items-center justify-between">
-                    <p className="text-sm font-semibold text-foreground">
+                    <p className="text-sm font-semibold uppercase text-foreground">
                       {insight.title}
                     </p>
-                    <span className="text-xs uppercase tracking-[0.2em] text-muted">
+                    <span className="text-xs font-mono uppercase tracking-[0.2em] text-foreground/70">
                       {insight.time}
                     </span>
                   </div>
-                  <p className="mt-2 text-xs text-muted">{insight.detail}</p>
+                  <p className="mt-2 text-xs font-mono text-foreground/70">
+                    {insight.detail}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
 
           <div className="w-full max-w-md">
-            <div className="rounded-3xl border border-foreground/10 bg-surface px-6 py-6 shadow-sm">
+            <div className="border-2 border-foreground bg-surface px-6 py-6 shadow-[6px_6px_0_0_#1a1a1a]">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-semibold text-foreground">
+                  <p className="text-sm font-semibold uppercase text-foreground">
                     Live signal strength
                   </p>
-                  <p className="text-xs text-muted">Last 60 minutes</p>
+                  <p className="text-xs font-mono text-foreground/70">
+                    Last 60 minutes
+                  </p>
                 </div>
-                <span className="rounded-full border border-foreground/10 bg-surface-alt px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-muted">
+                <span className="border-2 border-foreground bg-heirlock-yellow px-3 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-foreground">
                   Stream
                 </span>
               </div>
@@ -79,20 +83,20 @@ export function TerminalDemo() {
                 {BARS.map((value, index) => (
                   <div
                     key={index}
-                    className="rounded-full bg-[linear-gradient(180deg,#0ea5a4,#ff5a1f)]"
+                    className="bg-foreground"
                     style={{ height: `${value}%` }}
                   />
                 ))}
               </div>
 
-              <div className="mt-6 rounded-2xl border border-foreground/10 bg-background px-4 py-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-muted">
+              <div className="mt-6 border-2 border-foreground bg-heirlock-blue px-4 py-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-foreground/70">
                   Signal confidence
                 </p>
                 <p className="mt-2 text-2xl font-semibold text-foreground">
                   92 percent
                 </p>
-                <p className="text-xs text-muted">
+                <p className="text-xs text-foreground/70">
                   Based on CloudWatch and Cost Explorer stability
                 </p>
               </div>
